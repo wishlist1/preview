@@ -30,7 +30,6 @@ functions:
       - http:
           path: /preview/{url}
           method: get
-          async: true
 
 resources:
   Resources:
