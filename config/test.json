@@ -1,0 +1,28 @@
+{
+    "amazon": {
+        "domains": [
+            "amazon.com",
+            "amazon.com.mx",
+            "amazon.co.uk",
+            "amazon.de",
+            "amazon.fr",
+            "amazon.it",
+            "amazon.es",
+            "amazon.nl",
+            "amazon.se",
+            "amazon.pl",
+            "amazon.co.jp",
+            "amazon.sg",
+            "amazon.ae",
+            "amazon.com.br",
+            "amazon.com.au",
+            "amazon.in",
+            "amazon.sa"
+        ],
+        "shortner": [
+            "amzn.eu",
+            "a.co",
+            "amzn.asia"
+        ]
+    } 
+}

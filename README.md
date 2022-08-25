@@ -48,10 +48,22 @@ Which should result in response similar to the following (removed `input` conten
 
 ```json
 {
-  "message": "Go Serverless v2.0! Your function executed successfully!",
-  "input": {
-    ...
-  }
+    "status": 200,
+    "data": {
+        "schema": {
+            // product schema object
+        },
+        "image": "string",
+        "meta": {
+            "parser": "string",
+            "modifiedDate": "date",
+            "createdDate": "date"
+        },
+        "name": "string",
+        "description": "string",
+        "sku": "string",
+        "url": "string"
+    }
 }
 ```
 
@@ -60,15 +72,47 @@ Which should result in response similar to the following (removed `input` conten
 You can invoke your function locally by using the following command:
 
 ```bash
-serverless invoke local --function hello
+serverless invoke local --function preview --data '{ "pathParameters": {"url":"aHR0cHM6Ly9hbXpuLmV1L2QvNzBPN2JMVQ=="}}'
 ```
+
+`url` is base64 encode string url of a product.  
 
 Which should result in response similar to the following:
 
-```
+```json
 {
-  "statusCode": 200,
-  "body": "{\n  \"message\": \"Go Serverless v3.0! Your function executed successfully!\",\n  \"input\": \"\"\n}"
+    "status": 200,
+    "data": {
+        "schema": {
+            "offers": {
+                "priceCurrency": "₹",
+                "@id": "B08TTPZ6MW",
+                "sku": "B08TTPZ6MW",
+                "offeredBy": "SRINIVASA Textiles",
+                "@type": "Offer",
+                "price": "309.00"
+            },
+            "image": "https://m.media-amazon.com/images/I/41b42TMM3SL._SX342_SY445_.jpg",
+            "@type": "Product",
+            "name": "Buy Amazon Brand - Eono Reusable Tote Bags | 100% Organic Cotton Shopping/Grocery Bag | Eco-Friendly Bag | Sturdy Canvas Bag with 15kgs Capacity | Pack of 2 | Life happens. Coffee helps & Salty but sweet at Amazon.in",
+            "description": "Buy Amazon Brand - Eono Reusable Tote Bags | 100% Organic Cotton Shopping/Grocery Bag | Eco-Friendly Bag | Sturdy Canvas Bag with 15kgs Capacity | Pack of 2 | Life happens. Coffee helps & Salty but sweet from Travel Tote Bags at Amazon.in. 30 days free exchange or return",
+            "category": "Shopping Bags & Baskets",
+            "sku": "B08TTPZ6MW",
+            "@context": "https://schema.org",
+            "brand": "Amazon Brand – Eono",
+            "url": "https://www.amazon.in/dp/B08TTPZ6MW?_encoding=UTF8&psc=1&ref_=cm_sw_r_cp_ud_dp_YS0GEB7DADQSW3JE4K0X"
+        },
+        "image": "https://m.media-amazon.com/images/I/41b42TMM3SL._SX342_SY445_.jpg",
+        "meta": {
+            "parser": "amazon",
+            "modifiedDate": "2022-08-17T12:24:45.760Z",
+            "createdDate": "2022-08-17T12:24:45.760Z"
+        },
+        "name": "Buy Amazon Brand - Eono Reusable Tote Bags | 100% Organic Cotton Shopping/Grocery Bag | Eco-Friendly Bag | Sturdy Canvas Bag with 15kgs Capacity | Pack of 2 | Life happens. Coffee helps & Salty but sweet at Amazon.in",
+        "description": "Buy Amazon Brand - Eono Reusable Tote Bags | 100% Organic Cotton Shopping/Grocery Bag | Eco-Friendly Bag | Sturdy Canvas Bag with 15kgs Capacity | Pack of 2 | Life happens. Coffee helps & Salty but sweet from Travel Tote Bags at Amazon.in. 30 days free exchange or return",
+        "sku": "B08TTPZ6MW",
+        "url": "https://www.amazon.in/dp/B08TTPZ6MW?_encoding=UTF8&psc=1&ref_=cm_sw_r_cp_ud_dp_YS0GEB7DADQSW3JE4K0X"
+    }
 }
 ```
 
@@ -84,28 +128,42 @@ It will add the `serverless-offline` plugin to `devDependencies` in `package.jso
 After installation, you can start local emulation with:
 
 ```
-serverless offline
+serverless offline start
 ```
 
 To learn more about the capabilities of `serverless-offline`, please refer to its [GitHub repository](https://github.com/dherault/serverless-offline).
 
-### DynamoDB Local Setup
+#### DynamoDB Local Setup
 ```bash
 npm install serverless-dynamodb-local 
 ```	
 
 ```bash
-serverless dynamodb install (or to use a persistent docker dynamodb instead, open a new terminal: cd ./dynamodb && docker-compose up -d)
+serverless dynamodb install 
+# (or to use a persistent docker dynamodb instead, open a new terminal: cd ./dynamodb && docker-compose up -d)
 
+# (below 2 commands start offline and imports schema in local dynamodb)
 serverless offline start
+serverless dynamodb migrate
 
-serverless dynamodb start --migrate (this imports schema)
+# (below start imports schema in local dynamodb only)
+serverless dynamodb start --migrate 
 ```
 
-### DynamoDB Admin
+#### DynamoDB Admin
 
 ```bash
 npm install -g dynamodb-admin
 
 dynamodb-admin
 ```
+
+### Open API Generation
+
+- Convert model schema
+
+`./node_modules/.bin/typeconv -f ts -t oapi -o spec/models --oapi-format json 'preview/models/*.ts'`
+
+- Generate schema
+
+`serverless openapi generate -o spec/openapi.json -f json -a 3.0.3`

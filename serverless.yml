@@ -25,11 +25,25 @@ provider:
 
 functions:
   preview:
-    handler: preview/get.get
+    handler: src/api/preview/get.get
     events:
       - http:
+          documentation: 
+            summary: "Get link preview"
+            methodResponses: 
+              - statusCode: 200
+                responseBody:
+                  description: "A result object for the link"
+                responseModels:
+                  application/json: "GetLinkPreviewResponse"
+            pathParams:
+              - name: "url"
+                description: "base64 encoded url"
+                schema:
+                  type: "string"
           path: /preview/{url}
           method: get
+          cors: true 
 
 resources:
   Resources:
@@ -49,10 +63,18 @@ resources:
 
 plugins:
   - serverless-plugin-typescript
+  - serverless-openapi-documenter
   - serverless-offline
   - serverless-dynamodb-local
+  - serverless-tscpaths
+  
+package:
+  patterns:
+    - 'spec/**'
+    - 'config/**'
 
 custom:
+  documentation: ${file(spec/serverless.doc.yml):documentation}
   dynamodb:
     stages:
       - dev

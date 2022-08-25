@@ -1,14 +1,16 @@
 {
-    "compilerOptions": {
-      "target": "es6",
-      "module": "commonjs",
-      "esModuleInterop": true
-    },
-    "exclude": [
-      "node_modules"
-    ],
-    "types": [
-      "node",
-      "aws-sdk"
-    ],
-  }
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "outDir": "./.build",
+    "baseUrl": "./src",
+    "paths": {
+      "@models/*": ["./models/*"],
+      "@lib/*": ["./lib/*"],
+      "@parsers/*": ["./lib/parsers/*"]
+    }
+  },
+  "exclude": ["node_modules"],
+  "types": ["node", "aws-sdk"]
+}

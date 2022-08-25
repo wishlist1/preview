@@ -1,0 +1,96 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "openwishlist-preview",
+    "description": "",
+    "version": "92579983-7bcb-4b02-b2a3-5f0a46a5eae6"
+  },
+  "components": {
+    "schemas": {
+      "url": {
+        "type": "string"
+      },
+      "GetLinkPreviewResponse": {
+        "properties": {
+          "url": {
+            "title": "Result.url",
+            "type": "string"
+          },
+          "image": {
+            "title": "Result.image",
+            "type": "string"
+          },
+          "name": {
+            "title": "Result.name",
+            "type": "string"
+          },
+          "sku": {
+            "title": "Result.sku",
+            "type": "string"
+          },
+          "keywords": {
+            "title": "Result.keywords",
+            "type": "string"
+          },
+          "description": {
+            "title": "Result.description",
+            "type": "string"
+          },
+          "schema": {
+            "title": "Result.schema",
+            "type": "object"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "additionalProperties": false,
+        "title": "Result",
+        "type": "object"
+      }
+    }
+  },
+  "paths": {
+    "/preview/{url}": {
+      "get": {
+        "summary": "Get link preview",
+        "description": "",
+        "operationId": "openwishlist-preview-dev-preview",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "path",
+            "description": "base64 encoded url",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/url"
+            }
+          }
+        ],
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "A result object for the link",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetLinkPreviewResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://preview.api.play.adapttive.com/dev",
+      "description": "Dev server (uses live data)"
+    },
+    {
+      "url": "https://preview.api.play.adapttive.com/live",
+      "description": "Live server (uses live data)"
+    }
+  ]
+}

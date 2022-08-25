@@ -1,0 +1,11 @@
+documentation:
+  servers:
+    - url: https://preview.api.play.adapttive.com/dev
+      description: Dev server (uses live data)
+    - url: https://preview.api.play.adapttive.com
+      description: Live server (uses live data)
+  models:
+    - name: "GetLinkPreviewResponse"
+      description: "GET preview response model"
+      contentType: "application/json"
+      schema: ${file(spec/models/result.json)}
