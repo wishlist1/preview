@@ -63,7 +63,7 @@ module.exports.get = async (
       body: JSON.stringify({
         status: 200,
         data: result.Item.data,
-        meta: result.Item.meta
+        meta: result.Item.data.meta
       })
     };
 
