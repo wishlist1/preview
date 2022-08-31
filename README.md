@@ -162,7 +162,7 @@ dynamodb-admin
 
 - Convert model schema
 
-`./node_modules/.bin/typeconv -f ts -t oapi -o spec/models --oapi-format json 'preview/models/*.ts'`
+`./node_modules/.bin/typeconv -f ts -t oapi -o spec/models --oapi-format json 'src/models/*.ts'`
 
 - Generate schema
 

@@ -2,13 +2,16 @@
   "openapi": "3.0.3",
   "info": {
     "title": "openwishlist-preview",
-    "description": "",
-    "version": "92579983-7bcb-4b02-b2a3-5f0a46a5eae6"
+    "description": "Link Preview API",
+    "version": "0.0.1"
   },
   "components": {
     "schemas": {
       "url": {
         "type": "string"
+      },
+      "refresh": {
+        "type": "boolean"
       },
       "GetLinkPreviewResponse": {
         "properties": {
@@ -39,6 +42,25 @@
           "schema": {
             "title": "Result.schema",
             "type": "object"
+          },
+          "meta": {
+            "properties": {
+              "parser": {
+                "title": "Meta.parser",
+                "type": "string"
+              },
+              "createdDate": {
+                "title": "Meta.createdDate",
+                "type": "string"
+              },
+              "modifiedDate": {
+                "title": "Meta.modifiedDate",
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Result.meta"
           }
         },
         "required": [
@@ -65,6 +87,15 @@
             "schema": {
               "$ref": "#/components/schemas/url"
             }
+          },
+          {
+            "name": "refresh",
+            "in": "query",
+            "description": "Force re-fetch result",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/refresh"
+            }
           }
         ],
         "tags": [],
@@ -89,8 +120,28 @@
       "description": "Dev server (uses live data)"
     },
     {
-      "url": "https://preview.api.play.adapttive.com/live",
+      "url": "https://preview.api.play.adapttive.com",
       "description": "Live server (uses live data)"
+    }
+  ],
+  "tags": [
+    {
+      "name": "serverless"
+    },
+    {
+      "name": "serverless-framework"
+    },
+    {
+      "name": "link-preview"
+    },
+    {
+      "name": "scraping"
+    },
+    {
+      "name": "nodejs"
+    },
+    {
+      "name": "aws"
     }
   ]
 }

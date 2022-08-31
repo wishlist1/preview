@@ -1,11 +1,63 @@
 documentation:
+  title: openwishlist-preview
+  description: Link Preview API
+  version: 0.0.1
+  tags:
+    - name: "serverless"
+    - name: "serverless-framework"
+    - name: "link-preview"
+    - name: "scraping"
+    - name: "nodejs"
+    - name: "aws"
   servers:
     - url: https://preview.api.play.adapttive.com/dev
       description: Dev server (uses live data)
     - url: https://preview.api.play.adapttive.com
       description: Live server (uses live data)
+
   models:
     - name: "GetLinkPreviewResponse"
       description: "GET preview response model"
       contentType: "application/json"
-      schema: ${file(spec/models/result.json)}
+      schema:
+        properties:
+          url:
+            title: Result.url
+            type: string
+          image:
+            title: Result.image
+            type: string
+          name:
+            title: Result.name
+            type: string
+          sku:
+            title: Result.sku
+            type: string
+          keywords:
+            title: Result.keywords
+            type: string
+          description:
+            title: Result.description
+            type: string
+          schema:
+            title: Result.schema
+            type: object
+          meta:
+            properties:
+              parser:
+                title: Meta.parser
+                type: string
+              createdDate:
+                title: Meta.createdDate
+                type: string
+              modifiedDate:
+                title: Meta.modifiedDate
+                type: string
+            additionalProperties: false
+            type: object
+            title: Result.meta
+        required:
+          - url
+        additionalProperties: false
+        title: Result
+        type: object

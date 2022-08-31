@@ -41,6 +41,11 @@ functions:
                 description: "base64 encoded url"
                 schema:
                   type: "string"
+            queryParams:
+              - name: "refresh"
+                description: "Force re-fetch result"
+                schema:
+                  type: "boolean"
           path: /preview/{url}
           method: get
           cors: true 
