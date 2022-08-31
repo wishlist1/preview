@@ -15,7 +15,7 @@
     "scraping"
   ],
   "author": "Milind Singh",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@types/jest": "28.1.8",
     "@types/node": "16.11.56",
