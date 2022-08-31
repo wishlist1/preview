@@ -21,43 +21,69 @@ documentation:
       contentType: "application/json"
       schema:
         properties:
-          url:
-            title: Result.url
-            type: string
-          image:
-            title: Result.image
-            type: string
-          name:
-            title: Result.name
-            type: string
-          sku:
-            title: Result.sku
-            type: string
-          keywords:
-            title: Result.keywords
-            type: string
-          description:
-            title: Result.description
-            type: string
-          schema:
-            title: Result.schema
+          data:
+            properties:
+              url:
+                title: Result.url
+                type: string
+              image:
+                title: Result.data.image
+                type: string
+              name:
+                title: Result.data.name
+                type: string
+              sku:
+                title: Result.data.sku
+                type: string
+              keywords:
+                title: Result.data.keywords
+                type: string
+              description:
+                title: Result.data.description
+                type: string
+              schema:
+                title: Result.data.schema
+                type: object
+              meta:
+                properties:
+                  parser:
+                    title: Result.data.meta.parser
+                    type: string
+                  createdDate:
+                    title: Result.data.meta.createdDate
+                    type: string
+                  modifiedDate:
+                    title: Result.data.meta.modifiedDate
+                    type: string
+                additionalProperties: false
+                type: object
+                title: Result.data.meta    
+            additionalProperties: false
             type: object
+            title: Result.data
+            required:
+              - url
           meta:
             properties:
               parser:
-                title: Meta.parser
+                title: Result.meta.parser
                 type: string
               createdDate:
-                title: Meta.createdDate
+                title: Result.meta.createdDate
                 type: string
               modifiedDate:
-                title: Meta.modifiedDate
+                title: Result.meta.modifiedDate
                 type: string
             additionalProperties: false
             type: object
-            title: Result.meta
+            title: Result.meta 
+          status: 
+            title: Result.status
+            type: number
         required:
-          - url
+          - data
+          - meta
+          - status
         additionalProperties: false
         title: Result
         type: object
