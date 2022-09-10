@@ -48,7 +48,10 @@ functions:
                   type: "boolean"
           path: /preview/{url}
           method: get
-          cors: true 
+          cors: true
+          throttling:
+            maxRequestsPerSecond: 50
+            maxConcurrentRequests: 20
 
 resources:
   Resources:
