@@ -1,6 +1,6 @@
 {
   "name": "@openwishlist/preview",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Serverless link preview api",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "28.1.8",
-    "@types/node": "16.11.56",
+    "@types/node": "16.11.58",
     "@typescript-eslint/eslint-plugin": "5.36.1",
     "@typescript-eslint/parser": "5.36.1",
     "aws-sdk": "2.1209.0",
