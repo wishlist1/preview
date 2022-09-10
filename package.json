@@ -42,6 +42,7 @@
     "cheerio": "^1.0.0-rc.12",
     "config": "^3.3.7",
     "schema-dts": "^1.1.0",
+    "serverless-api-gateway-throttling": "^2.0.2",
     "user-agents": "^1.0.1102",
     "uuid": "^8.0.0"
   }

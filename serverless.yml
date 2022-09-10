@@ -72,13 +72,17 @@ plugins:
   - serverless-offline
   - serverless-dynamodb-local
   - serverless-tscpaths
-  
+  - serverless-api-gateway-throttling
+ 
 package:
   patterns:
     - 'spec/**'
     - 'config/**'
 
 custom:
+  apiGatewayThrottling:
+    maxRequestsPerSecond: 50
+    maxConcurrentRequests: 20
   documentation: ${file(spec/serverless.doc.yml):documentation}
   dynamodb:
     stages:
