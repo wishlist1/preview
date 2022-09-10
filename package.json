@@ -1,6 +1,6 @@
 {
   "name": "@openwishlist/preview",
-  "version": "0.2.0",
+  "version": "0.4.0",
   "description": "Serverless link preview api",
   "main": "index.js",
   "scripts": {
@@ -18,22 +18,22 @@
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "28.1.8",
-    "@types/node": "16.11.56",
+    "@types/node": "16.11.58",
     "@typescript-eslint/eslint-plugin": "5.36.1",
     "@typescript-eslint/parser": "5.36.1",
-    "aws-sdk": "2.1209.0",
+    "aws-sdk": "2.1213.0",
     "eslint": "8.23.0",
     "jest": "28.1.3",
     "prettier": "2.7.1",
     "serverless-dynamodb-local": "0.2.40",
-    "serverless-offline": "10.0.0",
+    "serverless-offline": "10.0.1",
     "serverless-openapi-documenter": "0.0.23",
     "serverless-plugin-typescript": "2.1.2",
     "serverless-tscpaths": "0.0.7",
     "ts-jest": "28.0.8",
     "ts-node": "10.9.1",
     "typeconv": "1.8.0",
-    "typescript": "4.8.2"
+    "typescript": "4.8.3"
   },
   "dependencies": {
     "@types/user-agents": "^1.0.2",
@@ -44,6 +44,6 @@
     "schema-dts": "^1.1.0",
     "serverless-api-gateway-throttling": "^2.0.2",
     "user-agents": "^1.0.1102",
-    "uuid": "^8.0.0"
+    "uuid": "^9.0.0"
   }
 }
