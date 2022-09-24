@@ -17,6 +17,7 @@ export default class Manual implements Parser {
     const result = {
       url,
       meta: {
+        version: 1,
         parser: 'manual',
         modifiedDate: new Date().toISOString()
       }

@@ -3,7 +3,7 @@
   "info": {
     "title": "openwishlist-preview",
     "description": "Link Preview API",
-    "version": "0.0.1"
+    "version": "0.6.0"
   },
   "components": {
     "schemas": {

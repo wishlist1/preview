@@ -3,8 +3,10 @@
 import { DynamoDB } from 'aws-sdk';
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { get as scrape } from '@lib/scraper';
-import { Result } from '@models/result';
+import { PriceChange, Result } from '@models/result';
 import { v4 as uuid } from 'uuid';
+import { Offer, PriceSpecification } from 'schema-dts';
+import { isEmpty, result } from 'lodash';
 
 const headers = {
   'Content-Type': 'application/json',
@@ -69,16 +71,21 @@ async function get(
 
       const data: Result = await scrape(newUrl);
       if (result.Item == null) {
+        data.meta.createdDate = data?.meta?.modifiedDate;
         result.Item = {
           data
         };
       } else {
+        data.meta.createdDate = result.Item.data?.meta?.createdDate;
+        addPrice(result.Item.data, data);
+        addVersion(result.Item.data, data);
         result.Item.data = data;
       }
 
-      data.meta.createdDate = data?.meta?.modifiedDate;
-
-      const id = result.Item.id == null ? uuid() : result.Item.id;
+      const id =
+        result.Item.id == null || result.Item.id == undefined
+          ? uuid()
+          : result.Item.id;
       data.id = id;
       const record = {
         TableName: process.env.DYNAMODB_TABLE,
@@ -169,6 +176,51 @@ async function getById(
         body: '{}'
       };
     }
+  }
+}
+
+function addVersion(oldResult: Result, newResult: Result) {
+  const version =
+    oldResult?.meta?.version !== undefined ? oldResult?.meta?.version : 1;
+  newResult.meta.version = version + 1;
+}
+
+function addPrice(oldResult: Result, newResult: Result) {
+  const oldOffer: Offer = Array.isArray(oldResult?.schema?.offers)
+    ? oldResult?.schema?.offers[0]
+    : oldResult?.schema?.offers;
+  const oldPrice = oldOffer?.price;
+
+  const newOffer: Offer = Array.isArray(newResult?.schema?.offers)
+    ? newResult?.schema?.offers[0]
+    : newResult?.schema?.offers;
+  const newPrice = newOffer?.price;
+
+  if (!isEmpty(newPrice) && !isEmpty(oldPrice) && oldPrice != newPrice) {
+    newResult.priceChangeType =
+      oldPrice < newPrice ? PriceChange.Increase : PriceChange.Decrease;
+    newResult.priceChange =
+      oldPrice < newPrice
+        ? parseFloat(newPrice.toString()) - parseFloat(oldPrice.toString())
+        : parseFloat(oldPrice.toString()) - parseFloat(newPrice.toString());
+
+    const price: PriceSpecification = {
+      '@type': 'PriceSpecification',
+      price: oldOffer.price,
+      priceCurrency: oldOffer.priceCurrency,
+      validFrom: oldResult.meta.modifiedDate,
+      validThrough: newResult.meta.modifiedDate
+    };
+
+    if (Array.isArray(newResult.prices)) {
+      newResult.prices.push(price);
+    } else {
+      newResult.prices = [price];
+    }
+  } else {
+    newResult.priceChange = oldResult.priceChange;
+    newResult.priceChangeType = oldResult?.priceChangeType;
+    newResult.prices = oldResult?.prices;
   }
 }
 

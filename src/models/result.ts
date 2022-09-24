@@ -1,9 +1,16 @@
-import { Product, WithContext } from 'schema-dts';
+import { PriceSpecification, Product, WithContext } from 'schema-dts';
 
 interface Meta {
   parser?: string;
   createdDate?: string;
   modifiedDate?: string;
+  version?: number;
+}
+
+export enum PriceChange {
+  Increase = 'increase',
+  Decrease = 'decrease',
+  NoChange = 'nochange'
 }
 
 export interface Result {
@@ -15,5 +22,8 @@ export interface Result {
   keywords?: string;
   description?: string;
   schema?: WithContext<Product>;
+  priceChangeType?: PriceChange;
+  priceChange?: number;
+  prices?: PriceSpecification[];
   meta?: Meta;
 }

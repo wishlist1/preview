@@ -17,6 +17,7 @@ export default class Scehma implements Parser {
     const result = {
       url,
       meta: {
+        version: 1,
         parser: 'schema',
         modifiedDate: new Date().toISOString()
       }

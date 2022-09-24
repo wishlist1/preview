@@ -21,6 +21,7 @@ export default class Amazon implements Parser {
     const result = {
       url,
       meta: {
+        version: 1,
         parser: 'amazon',
         modifiedDate: new Date().toISOString()
       }
