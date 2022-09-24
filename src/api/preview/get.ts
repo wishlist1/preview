@@ -2,68 +2,102 @@
 
 import { DynamoDB } from 'aws-sdk';
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import { get } from '@lib/scraper';
+import { get as scrape } from '@lib/scraper';
 import { Result } from '@models/result';
+import { v4 as uuid } from 'uuid';
+
+const headers = {
+  'Content-Type': 'application/json',
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Credentials': true
+};
 
 const options = {
+  sslEnabled: false,
   region: 'localhost',
-  endpoint: 'http://localhost:8000',
+  endpoint: 'localhost:8000',
   accessKeyId: 'access_key',
   secretAccessKey: 'secret_key'
 };
 
 const isOffline = () => process.env.IS_OFFLINE;
+const isTest = () => process.env.JEST_WORKER_ID;
 
-const dynamoDb = isOffline()
-  ? new DynamoDB.DocumentClient(options)
-  : new DynamoDB.DocumentClient();
+const dynamoDb =
+  isOffline() || isTest()
+    ? new DynamoDB.DocumentClient(options)
+    : new DynamoDB.DocumentClient();
 
-module.exports.get = async (
+async function get(
   event: APIGatewayProxyEvent
-): Promise<APIGatewayProxyResult> => {
+): Promise<APIGatewayProxyResult> {
   const refresh = Boolean(event?.queryStringParameters?.refresh);
   const url = event.pathParameters.url;
   const params = {
     TableName: process.env.DYNAMODB_TABLE,
-    Key: {
-      url: url
-    }
+    ExpressionAttributeValues: {
+      ':url': url
+    },
+    KeyConditionExpression: '#url = :url',
+    ExpressionAttributeNames: {
+      '#url': 'url'
+    },
+    Limit: 1
   };
 
   // fetch result from the database
   try {
-    const result = await dynamoDb.get(params).promise();
+    const output = await dynamoDb.query(params).promise();
+    const result = {
+      TableName: process.env.DYNAMODB_TABLE,
+      Item: null
+    };
 
-    if (refresh == true || Object.keys(result).length === 0) {
-      const newUrl = Buffer.from(url, 'base64').toString('ascii');
-      const data: Result = await get(newUrl);
-      result.Item = {};
-      result.Item.data = data;
+    let present = false;
+    if (output.Items.length !== 0) {
+      present = true;
+      result.Item = output.Items.pop();
+    }
+
+    if (refresh == true || !present) {
+      console.log('fetching new');
+
+      let newUrl = Buffer.from(url, 'base64').toString('ascii');
+      if (newUrl.toLowerCase().substring(0, 4) !== 'http') {
+        newUrl = 'https://' + newUrl;
+      }
+
+      const data: Result = await scrape(newUrl);
+      if (result.Item == null) {
+        result.Item = {
+          data
+        };
+      } else {
+        result.Item.data = data;
+      }
 
       data.meta.createdDate = data?.meta?.modifiedDate;
 
+      const id = result.Item.id == null ? uuid() : result.Item.id;
+      data.id = id;
       const record = {
         TableName: process.env.DYNAMODB_TABLE,
         Item: {
+          id: id,
           url: url,
           data: data
         }
       };
       await dynamoDb.put(record).promise();
-      console.log('fetching new');
     }
 
     const response = {
       statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*', // Required for CORS support to work
-        'Access-Control-Allow-Credentials': true // Required for cookies, authorization headers with HTTP
-      },
+      headers,
       body: JSON.stringify({
         status: 200,
-        data: result.Item.data,
-        meta: result.Item.data.meta
+        data: result.Item?.data,
+        meta: result.Item?.data?.meta
       })
     };
 
@@ -74,13 +108,68 @@ module.exports.get = async (
     if (error) {
       return {
         statusCode: error.statusCode || 501,
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*', // Required for CORS support to work
-          'Access-Control-Allow-Credentials': true // Required for cookies, authorization headers with HTTP
-        },
+        headers,
         body: '{}'
       };
     }
   }
-};
+}
+
+async function getById(
+  event: APIGatewayProxyEvent
+): Promise<APIGatewayProxyResult> {
+  const id = event.pathParameters.id;
+  const params = {
+    TableName: process.env.DYNAMODB_TABLE,
+    IndexName: 'idIndex',
+    ExpressionAttributeValues: {
+      ':id': id
+    },
+    KeyConditionExpression: '#id = :id',
+    ExpressionAttributeNames: {
+      '#id': 'id'
+    },
+    Limit: 1
+  };
+
+  // fetch result from the database
+  try {
+    const result = await dynamoDb.query(params).promise();
+    let response = {
+      statusCode: 404,
+      headers,
+      body: JSON.stringify({
+        status: 404,
+        data: {},
+        meta: {}
+      })
+    };
+
+    if (result.Items.length !== 0) {
+      const data = result.Items.pop();
+      response = {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({
+          status: 200,
+          data: data,
+          meta: data.meta
+        })
+      };
+    }
+
+    return response;
+  } catch (error) {
+    // handle potential errors
+    console.log(error);
+    if (error) {
+      return {
+        statusCode: error.statusCode || 501,
+        headers,
+        body: '{}'
+      };
+    }
+  }
+}
+
+export { get, getById };

@@ -29,7 +29,7 @@ functions:
     events:
       - http:
           documentation: 
-            summary: "Get link preview"
+            summary: "Get product preview by url"
             methodResponses: 
               - statusCode: 200
                 responseBody:
@@ -52,6 +52,29 @@ functions:
           throttling:
             maxRequestsPerSecond: 50
             maxConcurrentRequests: 20
+  preview-get-by-id:
+    handler: src/api/preview/get.getById
+    events:
+      - http:
+          documentation: 
+            summary: "Get product by preview id"
+            methodResponses: 
+              - statusCode: 200
+                responseBody:
+                  description: "A result object for the link"
+                responseModels:
+                  application/json: "GetLinkPreviewResponse"
+            pathParams:
+              - name: "id"
+                description: "uuid of product"
+                schema:
+                  type: "string"
+          path: /preview/getById/{id}
+          method: get
+          cors: true
+          throttling:
+            maxRequestsPerSecond: 50
+            maxConcurrentRequests: 20
 
 resources:
   Resources:
@@ -59,13 +82,21 @@ resources:
       Type: 'AWS::DynamoDB::Table'
       Properties:
         AttributeDefinitions:
-          -
-            AttributeName: url
+          - AttributeName: url
+            AttributeType: S
+
+          - AttributeName: id
             AttributeType: S
         KeySchema:
-          -
-            AttributeName: url
+          - AttributeName: url
             KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: idIndex
+            KeySchema:
+              - AttributeName: id
+                KeyType: HASH
+            Projection:
+              ProjectionType: 'ALL'
         BillingMode: PAY_PER_REQUEST
         TableName: ${self:provider.environment.DYNAMODB_TABLE}
 

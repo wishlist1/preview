@@ -17,6 +17,10 @@
         "properties": {
           "data": {
             "properties": {
+              "id": {
+                "title": "Result.id",
+                "type": "string"
+              },
               "url": {
                 "title": "Result.url",
                 "type": "string"
@@ -69,7 +73,8 @@
             "type": "object",
             "title": "Result.data",
             "required": [
-              "url"
+              "url",
+              "id"
             ]
           },
           "meta": {
@@ -104,13 +109,16 @@
         "additionalProperties": false,
         "title": "Result",
         "type": "object"
+      },
+      "id": {
+        "type": "string"
       }
     }
   },
   "paths": {
     "/preview/{url}": {
       "get": {
-        "summary": "Get link preview",
+        "summary": "Get product preview by url",
         "description": "",
         "operationId": "openwishlist-preview-dev-preview",
         "parameters": [
@@ -130,6 +138,37 @@
             "required": false,
             "schema": {
               "$ref": "#/components/schemas/refresh"
+            }
+          }
+        ],
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "A result object for the link",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetLinkPreviewResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/preview/getById/{id}": {
+      "get": {
+        "summary": "Get product by preview id",
+        "description": "",
+        "operationId": "openwishlist-preview-dev-preview-get-by-id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "uuid of product",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/id"
             }
           }
         ],

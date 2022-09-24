@@ -32,17 +32,28 @@ async function get(url: string) {
   } catch (error) {
     console.log(error);
     return {
-      url
+      url,
+      meta: {}
     };
   }
 }
 
 function parse(url: string, html: string) {
   let result: Result = {
-    url
+    url,
+    meta: {}
   };
 
   if (html !== undefined) {
+    /**
+      // for testing in browser:
+      var jq = document.createElement('script');
+      jq.src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js";
+      document.getElementsByTagName('head')[0].appendChild(jq);
+      // ... give time for script to load, then type (or see below for non wait option)
+      jQuery.noConflict();
+     */
+
     const $ = cheerio.load(html);
     const parsers: Parser[] = [scehma, amazon, manual];
     for (const parser of parsers) {

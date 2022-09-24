@@ -1,10 +1,14 @@
 {
   "name": "@openwishlist/preview",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Serverless link preview api",
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "deploy": "serverless deploy",
+    "develop": "serverless offline start",
+    "migrate": "serverless dynamodb migrate",
+    "gen:doc": "serverless openapi generate -o spec/openapi.json -f json -a 3.0.3",
     "watch": "tsc -w",
     "lint": "eslint .",
     "format": "prettier --config .prettierrc 'src/**/*.ts' 'test/**/*.ts' --write"
@@ -17,6 +21,7 @@
   "author": "Milind Singh",
   "license": "MIT",
   "devDependencies": {
+    "@shelf/jest-dynamodb": "3.3.1",
     "@types/jest": "28.1.8",
     "@types/node": "16.11.58",
     "@typescript-eslint/eslint-plugin": "5.36.1",
@@ -36,11 +41,14 @@
     "typescript": "4.8.3"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.185",
     "@types/user-agents": "^1.0.2",
     "aws-lambda": "^1.0.7",
     "axios": "^0.27.2",
+    "base64url": "^3.0.1",
     "cheerio": "^1.0.0-rc.12",
     "config": "^3.3.7",
+    "lodash": "^4.17.21",
     "schema-dts": "^1.1.0",
     "serverless-api-gateway-throttling": "^2.0.2",
     "user-agents": "^1.0.1102",

@@ -8,6 +8,7 @@ interface Meta {
 
 export interface Result {
   url: string;
+  id?: string;
   image?: string;
   name?: string;
   sku?: string;

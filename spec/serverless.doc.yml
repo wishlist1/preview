@@ -23,6 +23,9 @@ documentation:
         properties:
           data:
             properties:
+              id:
+                title: Result.id
+                type: string
               url:
                 title: Result.url
                 type: string
@@ -63,6 +66,7 @@ documentation:
             title: Result.data
             required:
               - url
+              - id
           meta:
             properties:
               parser:

@@ -1,6 +1,7 @@
 import config from 'config';
-import { Product, WithContext } from 'schema-dts';
+import { Product, Review, WithContext } from 'schema-dts';
 import Parser from '@parsers/parser';
+import { isEmpty } from 'lodash';
 
 export default class Amazon implements Parser {
   public indentify(url: string, $: any) {
@@ -62,9 +63,16 @@ export default class Amazon implements Parser {
         price: price,
         priceCurrency: currency,
         sku: sku,
-        offeredBy: seller
+        offeredBy: seller,
+        review: this.getReview($)
       }
     };
+
+    const details = this.getDetails($);
+    for (const k in details) {
+      schema[k] = details[k];
+    }
+
     result['schema'] = schema;
 
     return result;
@@ -84,5 +92,71 @@ export default class Amazon implements Parser {
     }
 
     return brand;
+  }
+
+  private getReview($: any) {
+    const review: Review = {
+      '@type': 'Review'
+    };
+    const ratingText = $("i[data-hook='average-star-rating']").text();
+    if (!isEmpty(ratingText)) {
+      const ratingRegex = new RegExp('(.*) out of (.*) stars', 'g');
+      const matches = ratingRegex.exec(ratingText);
+      review.reviewRating = {
+        '@type': 'Rating',
+        bestRating: matches[2],
+        ratingValue: matches[1]
+      };
+    }
+
+    return review;
+  }
+
+  private getDetails($: any) {
+    const mapping = {
+      CountryofOrigin: {
+        attribute: 'countryOfOrigin',
+        value: (value) => value
+      },
+      ItemWeight: {
+        attribute: 'weight',
+        value: (value) => {
+          return {
+            '@type': 'QuantitativeValue',
+            value: value
+          };
+        }
+      },
+      Manufacturer: {
+        attribute: 'manufacturer',
+        value: (value) => value
+      },
+      Itemmodelnumber: {
+        attribute: 'mpn',
+        value: (value) => value
+      }
+    };
+
+    const details = {};
+    const list = $('#detailBullets_feature_div').find('li');
+    if (!isEmpty(list)) {
+      for (const item of list) {
+        const key = $(item)
+          .find('.a-text-bold')
+          .text()
+          .replace(/(?:\r\n|\r|\n|:|\s+)/g, '')
+          .replace(/[^\x00-\x7F]/g, '');
+        const value = $(item)
+          .find('.a-list-item > span:nth-child(2)')
+          .text()
+          .replace(/(?:\r\n|\r|\n|\s+)/g, '')
+          .replace(/[^\x00-\x7F]/g, '');
+        if (mapping[key]) {
+          details[mapping[key]['attribute']] = mapping[key]['value'](value);
+        }
+      }
+    }
+
+    return details;
   }
 }

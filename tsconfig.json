@@ -6,6 +6,7 @@
     "outDir": "./.build",
     "baseUrl": "./src",
     "paths": {
+      "@api/*": ["./api/*"],
       "@models/*": ["./models/*"],
       "@lib/*": ["./lib/*"],
       "@parsers/*": ["./lib/parsers/*"]
