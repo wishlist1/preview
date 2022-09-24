@@ -12,7 +12,7 @@ authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'
 
 # Serverless Link Preview Service
 
-![GitHub package.json version](https://img.shields.io/github/package-json/v/openwishlist/preview?color=dark-green) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/openwishlist/preview) ![GitHub top language](https://img.shields.io/github/languages/top/openwishlist/preview) [![Deployment](https://github.com/openwishlist/preview/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/openwishlist/preview/actions/workflows/deploy.yml)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/openwishlist/preview?color=dark-green) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/openwishlist/preview) ![GitHub top language](https://img.shields.io/github/languages/top/openwishlist/preview) [![Deployment](https://github.com/openwishlist/preview/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/openwishlist/preview/actions/workflows/deploy.yml) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/de29ea4c910f49a0bf80c0d4c55f03a8)](https://www.codacy.com/gh/openwishlist/preview/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=openwishlist/preview&amp;utm_campaign=Badge_Grade)
 
 This service provide simple HTTP API to get url preview with Node.js running on AWS Lambda and API Gateway using the Serverless Framework.
 
