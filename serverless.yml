@@ -22,7 +22,11 @@ provider:
             - dynamodb:UpdateItem
             - dynamodb:DeleteItem
           Resource: "arn:aws:dynamodb:${aws:region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
-
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+          Resource: "arn:aws:dynamodb:${aws:region}:*:table/${self:provider.environment.DYNAMODB_TABLE}/index/*"
 functions:
   preview:
     handler: src/api/preview/get.get
@@ -69,7 +73,7 @@ functions:
                 description: "uuid of product"
                 schema:
                   type: "string"
-          path: /preview/getById/{id}
+          path: /preview/id/{id}
           method: get
           cors: true
           throttling:

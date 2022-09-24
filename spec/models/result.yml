@@ -15,6 +15,9 @@ components:
         url:
           title: Result.url
           type: string
+        id:
+          title: Result.id
+          type: string
         image:
           title: Result.image
           type: string
@@ -32,7 +35,18 @@ components:
           type: string
         schema:
           title: Result.schema
-          type: object
+        priceChangeType:
+          $ref: '#/components/schemas/PriceChange'
+          title: Result.priceChangeType
+        priceChange:
+          title: Result.priceChange
+          type: number
+        prices:
+          items:
+            $ref: '#/components/schemas/PriceSpecification'
+            title: Result.prices.[]
+          title: Result.prices
+          type: array
         meta:
           $ref: '#/components/schemas/Meta'
           title: Result.meta
@@ -52,6 +66,9 @@ components:
         modifiedDate:
           title: Meta.modifiedDate
           type: string
+        version:
+          title: Meta.version
+          type: number
       additionalProperties: false
       title: Meta
       type: object

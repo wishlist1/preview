@@ -10,6 +10,7 @@
     "db:migrate": "serverless dynamodb migrate",
     "db:explorer": "dynamodb-admin",
     "doc:generate": "serverless openapi generate -o spec/openapi.json -f json -a 3.0.3",
+    "doc:convert": "typeconv -f ts -t oapi -o spec/models --oapi-format yml 'src/models/*.ts'",
     "watch": "tsc -w",
     "lint": "eslint .",
     "format": "prettier --config .prettierrc 'src/**/*.ts' 'test/**/*.ts' --write"

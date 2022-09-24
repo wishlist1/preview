@@ -1,0 +1,27 @@
+{
+  "type": "array",
+  "title": "Result.data.prices",
+  "items": {
+    "properties": {
+      "price": {
+        "title": "Result.data.prices.price.price",
+        "type": "string"
+      },
+      "priceCurrency": {
+        "title": "Result.data.prices.price.priceCurrency",
+        "type": "string"
+      },
+      "validFrom": {
+        "title": "Result.data.prices.price.validFrom",
+        "type": "string"
+      },
+      "validThrough": {
+        "title": "Result.data.prices.price.validThrough",
+        "type": "string"
+      }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "title": "Result.data.price"
+  }
+}

@@ -45,28 +45,72 @@
                 "title": "Result.data.description",
                 "type": "string"
               },
+              "prices": {
+                "title": "Result.data.prices",
+                "type": "array",
+                "items": {
+                  "properties": {
+                    "price": {
+                      "title": "Result.data.prices.price.price",
+                      "type": "string"
+                    },
+                    "priceCurrency": {
+                      "title": "Result.data.prices.price.priceCurrency",
+                      "type": "string"
+                    },
+                    "validFrom": {
+                      "title": "Result.data.prices.price.validFrom",
+                      "type": "string"
+                    },
+                    "validThrough": {
+                      "title": "Result.data.prices.price.validThrough",
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "type": "object",
+                  "title": "Result.data.price"
+                }
+              },
+              "priceChangeType": {
+                "title": "Result.data.priceChangeType",
+                "type": "string",
+                "enum": [
+                  "increase",
+                  "decrease",
+                  "nochange"
+                ]
+              },
+              "priceChange": {
+                "title": "Result.data.priceChange",
+                "type": "string"
+              },
               "schema": {
                 "title": "Result.data.schema",
                 "type": "object"
               },
               "meta": {
+                "title": "Result.data.meta",
                 "properties": {
+                  "version": {
+                    "title": "Result.meta.version",
+                    "type": "number"
+                  },
                   "parser": {
-                    "title": "Result.data.meta.parser",
+                    "title": "Result.meta.parser",
                     "type": "string"
                   },
                   "createdDate": {
-                    "title": "Result.data.meta.createdDate",
+                    "title": "Result.meta.createdDate",
                     "type": "string"
                   },
                   "modifiedDate": {
-                    "title": "Result.data.meta.modifiedDate",
+                    "title": "Result.meta.modifiedDate",
                     "type": "string"
                   }
                 },
                 "additionalProperties": false,
-                "type": "object",
-                "title": "Result.data.meta"
+                "type": "object"
               }
             },
             "additionalProperties": false,
@@ -78,7 +122,12 @@
             ]
           },
           "meta": {
+            "title": "Result.meta",
             "properties": {
+              "version": {
+                "title": "Result.meta.version",
+                "type": "number"
+              },
               "parser": {
                 "title": "Result.meta.parser",
                 "type": "string"
@@ -93,8 +142,7 @@
               }
             },
             "additionalProperties": false,
-            "type": "object",
-            "title": "Result.meta"
+            "type": "object"
           },
           "status": {
             "title": "Result.status",
@@ -156,7 +204,7 @@
         }
       }
     },
-    "/preview/getById/{id}": {
+    "/preview/id/{id}": {
       "get": {
         "summary": "Get product by preview id",
         "description": "",

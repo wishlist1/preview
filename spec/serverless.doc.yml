@@ -1,7 +1,7 @@
 documentation:
   title: openwishlist-preview
   description: Link Preview API
-  version: 0.5.0
+  version: 0.6.0
   tags:
     - name: "serverless"
     - name: "serverless-framework"
@@ -17,7 +17,7 @@ documentation:
 
   models:
     - name: "GetLinkPreviewResponse"
-      description: "GET preview response model"
+      description: "Link Preview Response Model"
       contentType: "application/json"
       schema:
         properties:
@@ -44,22 +44,20 @@ documentation:
               description:
                 title: Result.data.description
                 type: string
+              prices:
+                title: Result.data.prices
+                $ref: 'spec/models/Prices.json'
+              priceChangeType:
+                title: Result.data.priceChangeType
+                $ref: 'spec/models/PriceChange.json'
+              priceChange:
+                title: Result.data.priceChange
+                type: string
               schema:
                 title: Result.data.schema
                 type: object
               meta:
-                properties:
-                  parser:
-                    title: Result.data.meta.parser
-                    type: string
-                  createdDate:
-                    title: Result.data.meta.createdDate
-                    type: string
-                  modifiedDate:
-                    title: Result.data.meta.modifiedDate
-                    type: string
-                additionalProperties: false
-                type: object
+                $ref: 'spec/models/Meta.json'
                 title: Result.data.meta    
             additionalProperties: false
             type: object
@@ -68,18 +66,7 @@ documentation:
               - url
               - id
           meta:
-            properties:
-              parser:
-                title: Result.meta.parser
-                type: string
-              createdDate:
-                title: Result.meta.createdDate
-                type: string
-              modifiedDate:
-                title: Result.meta.modifiedDate
-                type: string
-            additionalProperties: false
-            type: object
+            $ref: 'spec/models/Meta.json'
             title: Result.meta 
           status: 
             title: Result.status

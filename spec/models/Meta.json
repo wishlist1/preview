@@ -1,0 +1,23 @@
+{
+  "properties": {
+    "version": {
+      "title": "Result.meta.version",
+      "type": "number"
+    },
+    "parser": {
+      "title": "Result.meta.parser",
+      "type": "string"
+    },
+    "createdDate": {
+      "title": "Result.meta.createdDate",
+      "type": "string"
+    },
+    "modifiedDate": {
+      "title": "Result.meta.modifiedDate",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "title": "Result.meta"
+}
