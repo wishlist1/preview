@@ -37,7 +37,12 @@ export default class Amazon implements Parser {
     result['description'] = description;
 
     const brand = this.getBrand($);
-    const category = $('.cat-link').text().replace('in ', '');
+    let category = $('.cat-link').text().replace('in ', '');
+    if (isEmpty(category)) {
+      category = $('#wayfinding-breadcrumbs_feature_div li:first')
+        .text()
+        .replace(/^\s+|\s+$/g, '');
+    }
     const sku = $('#averageCustomerReviews').attr('data-asin');
     const image = $('#imgTagWrapperId img').attr('src');
     const price =
@@ -47,7 +52,7 @@ export default class Amazon implements Parser {
 
     result['sku'] = sku;
     result['image'] = image;
-    result['keywords'] = `${brand},${category}`;
+    result['keywords'] = this.getKeywords($, brand);
 
     const schema: WithContext<Product> = {
       '@context': 'https://schema.org',
@@ -78,6 +83,22 @@ export default class Amazon implements Parser {
     result['schema'] = schema;
 
     return result;
+  }
+
+  private getKeywords($: any, brand) {
+    const keywords = [brand];
+    const categories = $('#wayfinding-breadcrumbs_feature_div li a');
+    if (!isEmpty(categories)) {
+      for (const item of categories) {
+        const value = $(item)
+          .find('.a-list-item > span:nth-child(2)')
+          .text()
+          .replace(/^\s+|\s+$/g, '')
+          .replace(/[^\x00-\x7F]/g, '');
+        keywords.push(value);
+      }
+    }
+    return keywords.join(',');
   }
 
   private getBrand($: any) {
