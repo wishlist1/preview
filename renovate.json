@@ -12,7 +12,7 @@
     }
   ],
   "bumpVersion": "minor",
-  "baseBranches": ["main"],
+  "baseBranches": ["develop"],
   "timezone": "Asia/Calcutta",
   "schedule": [
     "after 10pm every weekday",
