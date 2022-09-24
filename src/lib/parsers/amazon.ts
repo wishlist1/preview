@@ -91,7 +91,6 @@ export default class Amazon implements Parser {
     if (!isEmpty(categories)) {
       for (const item of categories) {
         const value = $(item)
-          .find('.a-list-item > span:nth-child(2)')
           .text()
           .replace(/^\s+|\s+$/g, '')
           .replace(/[^\x00-\x7F]/g, '');
