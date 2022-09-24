@@ -53,5 +53,9 @@
     "serverless-api-gateway-throttling": "^2.0.2",
     "user-agents": "^1.0.1102",
     "uuid": "^9.0.0"
+  },
+  "engines": {
+    "node": "16.x",
+    "npm": "6.x"
   }
 }
