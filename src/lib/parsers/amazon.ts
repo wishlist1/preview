@@ -47,6 +47,7 @@ export default class Amazon implements Parser {
 
     result['sku'] = sku;
     result['image'] = image;
+    result['keywords'] = `${brand},${category}`;
 
     const schema: WithContext<Product> = {
       '@context': 'https://schema.org',
@@ -135,11 +136,19 @@ export default class Amazon implements Parser {
       Itemmodelnumber: {
         attribute: 'mpn',
         value: (value) => value
+      },
+      'MaterialType(s)': {
+        attribute: 'material',
+        value: (value) => value
+      },
+      Color: {
+        attribute: 'color',
+        value: (value) => value
       }
     };
 
     const details = {};
-    const list = $('#detailBullets_feature_div').find('li');
+    let list = $('#detailBullets_feature_div').find('li');
     if (!isEmpty(list)) {
       for (const item of list) {
         const key = $(item)
@@ -150,7 +159,27 @@ export default class Amazon implements Parser {
         const value = $(item)
           .find('.a-list-item > span:nth-child(2)')
           .text()
-          .replace(/(?:\r\n|\r|\n|\s+)/g, '')
+          .replace(/^\s+|\s+$/g, '')
+          .replace(/[^\x00-\x7F]/g, '');
+        if (mapping[key]) {
+          details[mapping[key]['attribute']] = mapping[key]['value'](value);
+        }
+      }
+    }
+
+    // Technical Details
+    list = $('#productDetails_techSpec_section_1').find('tr');
+    if (!isEmpty(list)) {
+      for (const item of list) {
+        const key = $(item)
+          .find('.prodDetSectionEntry')
+          .text()
+          .replace(/(?:\r\n|\r|\n|:|\s+)/g, '')
+          .replace(/[^\x00-\x7F]/g, '');
+        const value = $(item)
+          .find('.prodDetAttrValue')
+          .text()
+          .replace(/^\s+|\s+$/g, '')
           .replace(/[^\x00-\x7F]/g, '');
         if (mapping[key]) {
           details[mapping[key]['attribute']] = mapping[key]['value'](value);
