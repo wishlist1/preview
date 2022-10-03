@@ -1,6 +1,6 @@
 {
   "name": "@openwishlist/preview",
-  "version": "0.20.0",
+  "version": "0.21.0",
   "description": "Serverless link preview api",
   "main": "index.js",
   "scripts": {
@@ -36,7 +36,7 @@
     "serverless-dynamodb-local": "0.2.40",
     "serverless-offline": "11.0.1",
     "serverless-openapi-documenter": "0.0.23",
-    "serverless-plugin-typescript": "2.1.2",
+    "serverless-plugin-typescript": "2.1.3",
     "serverless-tscpaths": "0.0.7",
     "ts-jest": "29.0.3",
     "ts-node": "10.9.1",
