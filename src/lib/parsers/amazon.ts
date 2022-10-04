@@ -27,6 +27,8 @@ export default class Amazon implements Parser {
       }
     };
 
+    console.log($)
+    
     const name = $('title').text();
     result['name'] = name;
 

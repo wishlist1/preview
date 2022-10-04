@@ -54,6 +54,8 @@ function parse(url: string, html: string) {
       jQuery.noConflict();
      */
 
+    console.log(html)
+
     const $ = cheerio.load(html);
     const parsers: Parser[] = [scehma, amazon, manual];
     for (const parser of parsers) {
