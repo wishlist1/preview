@@ -1,6 +1,7 @@
 import config from 'config';
 import { Product, Review, WithContext } from 'schema-dts';
 import Parser from '@parsers/parser';
+import { get as browser } from '@lib/browser';
 import { isEmpty } from 'lodash';
 
 export default class Amazon implements Parser {
@@ -27,8 +28,8 @@ export default class Amazon implements Parser {
       }
     };
 
-    console.log($)
-    
+    //console.log($)
+
     const name = $('title').text();
     result['name'] = name;
 
@@ -85,6 +86,11 @@ export default class Amazon implements Parser {
     result['schema'] = schema;
 
     return result;
+  }
+
+  public blocked(html: string) {
+    const warning: string = config.get('amazon.robot-warning');
+    return html.includes(warning);
   }
 
   private getKeywords($: any, brand) {
