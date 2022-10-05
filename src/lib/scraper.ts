@@ -6,6 +6,7 @@ import Amazon from '@parsers/amazon';
 import Manual from '@parsers/manual';
 import Parser from '@parsers/parser';
 import { Result } from '@models/result';
+import { get as browser } from '@lib/browser';
 
 const scehma = new Schema();
 const amazon = new Amazon();
@@ -27,6 +28,10 @@ async function get(url: string) {
 
     const fetchedUrl = response?.request?.res?.responseUrl;
     url = fetchedUrl !== undefined ? fetchedUrl : url;
+
+    if (amazon.blocked(response.data)) {
+      response.data = await browser(url);
+    }
 
     return parse(url, response.data);
   } catch (error) {
@@ -54,7 +59,7 @@ function parse(url: string, html: string) {
       jQuery.noConflict();
      */
 
-    console.log(html)
+    //console.log(html)
 
     const $ = cheerio.load(html);
     const parsers: Parser[] = [scehma, amazon, manual];
