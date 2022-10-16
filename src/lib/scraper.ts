@@ -13,6 +13,10 @@ const amazon = new Amazon();
 const manual = new Manual();
 
 async function get(url: string) {
+  let result: Result = {
+    url,
+    meta: {}
+  };
   try {
     const userAgent = new UserAgent({ deviceCategory: 'desktop' });
     const response = await axios.get(url, {
@@ -29,17 +33,18 @@ async function get(url: string) {
     const fetchedUrl = response?.request?.res?.responseUrl;
     url = fetchedUrl !== undefined ? fetchedUrl : url;
 
+    let data = 'curl';
     if (amazon.blocked(response.data)) {
       response.data = await browser(url);
+      data = 'browser';
     }
 
-    return parse(url, response.data);
+    result = parse(url, response.data);
+    result.meta.data = data;
+    return result;
   } catch (error) {
     console.log(error);
-    return {
-      url,
-      meta: {}
-    };
+    return result;
   }
 }
 

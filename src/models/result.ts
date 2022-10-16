@@ -2,6 +2,7 @@ import { PriceSpecification, Product, WithContext } from 'schema-dts';
 
 interface Meta {
   parser?: string;
+  data?: string;
   createdDate?: string;
   modifiedDate?: string;
   version?: number;
