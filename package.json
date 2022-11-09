@@ -1,6 +1,6 @@
 {
   "name": "@openwishlist/preview",
-  "version": "0.83.0",
+  "version": "0.84.0",
   "description": "Serverless link preview api",
   "main": "index.js",
   "scripts": {
@@ -36,7 +36,7 @@
     "puppeteer": "13.7.0",
     "serverless-dynamodb-local": "0.2.40",
     "serverless-offline": "11.3.0",
-    "serverless-openapi-documenter": "0.0.23",
+    "serverless-openapi-documenter": "0.0.25",
     "serverless-plugin-typescript": "2.1.4",
     "serverless-tscpaths": "0.0.7",
     "ts-jest": "29.0.3",
