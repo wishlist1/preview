@@ -1,6 +1,6 @@
 {
   "name": "@openwishlist/preview",
-  "version": "0.140.0",
+  "version": "0.141.0",
   "description": "Serverless link preview api",
   "main": "index.js",
   "scripts": {
@@ -26,8 +26,8 @@
     "@shelf/jest-dynamodb": "3.3.1",
     "@types/jest": "29.2.4",
     "@types/node": "16.18.10",
-    "@typescript-eslint/eslint-plugin": "5.46.1",
-    "@typescript-eslint/parser": "5.46.1",
+    "@typescript-eslint/eslint-plugin": "5.47.0",
+    "@typescript-eslint/parser": "5.47.0",
     "aws-sdk": "2.1278.0",
     "dynamodb-admin": "4.5.0",
     "eslint": "8.30.0",
