@@ -1,6 +1,6 @@
 {
   "name": "@openwishlist/preview",
-  "version": "0.144.0",
+  "version": "0.145.0",
   "description": "Serverless link preview api",
   "main": "index.js",
   "scripts": {
@@ -33,7 +33,7 @@
     "eslint": "8.30.0",
     "jest": "29.3.1",
     "prettier": "2.8.1",
-    "puppeteer": "13.7.0",
+    "puppeteer": "19.4.1",
     "serverless-dynamodb-local": "0.2.40",
     "serverless-offline": "11.6.0",
     "serverless-openapi-documenter": "0.0.40",
