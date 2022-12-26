@@ -12,7 +12,7 @@ const scehma = new Schema();
 const amazon = new Amazon();
 const manual = new Manual();
 
-async function get(url: string) {
+async function get(url: string, forceBrowser: boolean) {
   let result: Result = {
     url,
     meta: {}
@@ -34,7 +34,7 @@ async function get(url: string) {
     url = fetchedUrl !== undefined ? fetchedUrl : url;
 
     let data = 'curl';
-    if (amazon.blocked(response.data)) {
+    if (amazon.blocked(response.data) || forceBrowser) {
       response.data = await browser(url);
       data = 'browser';
     }

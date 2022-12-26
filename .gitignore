@@ -8,3 +8,5 @@ jspm_packages
 .dynamodb
 
 undefined
+/.idea/
+/undefined/

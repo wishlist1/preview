@@ -34,6 +34,7 @@ async function get(
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> {
   const refresh = Boolean(event?.queryStringParameters?.refresh);
+  const browser = Boolean(event?.queryStringParameters?.browser);
   const url = event.pathParameters.url;
   const params = {
     TableName: process.env.DYNAMODB_TABLE,
@@ -69,7 +70,7 @@ async function get(
         newUrl = 'https://' + newUrl;
       }
 
-      const data: Result = await scrape(newUrl);
+      const data: Result = await scrape(newUrl, browser);
       if (result.Item == null) {
         data.meta.createdDate = data?.meta?.modifiedDate;
         result.Item = {
