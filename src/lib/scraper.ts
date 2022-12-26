@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, {AxiosError} from 'axios';
 import * as cheerio from 'cheerio';
 import UserAgent from 'user-agents';
 import Schema from '@parsers/schema';
@@ -17,6 +17,8 @@ async function get(url: string, forceBrowser: boolean) {
     url,
     meta: {}
   };
+  let data = 'curl';
+
   try {
     const userAgent = new UserAgent({ deviceCategory: 'desktop' });
     const response = await axios.get(url, {
@@ -33,7 +35,6 @@ async function get(url: string, forceBrowser: boolean) {
     const fetchedUrl = response?.request?.res?.responseUrl;
     url = fetchedUrl !== undefined ? fetchedUrl : url;
 
-    let data = 'curl';
     if (amazon.blocked(response.data) || forceBrowser) {
       response.data = await browser(url);
       data = 'browser';
@@ -44,6 +45,12 @@ async function get(url: string, forceBrowser: boolean) {
     return result;
   } catch (error) {
     console.log(error);
+    if (error?.response?.status == 503 && amazon.indentify(url, "")) {
+      const html = await browser(url);
+      data = 'browser';
+      result = parse(url, html);
+      result.meta.data = data;
+    }
     return result;
   }
 }
