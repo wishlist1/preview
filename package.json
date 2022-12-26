@@ -24,6 +24,7 @@
   "license": "MIT",
   "devDependencies": {
     "@shelf/jest-dynamodb": "3.3.1",
+    "@sparticuz/chromium": "^106.0.2",
     "@types/jest": "29.2.4",
     "@types/node": "16.18.10",
     "@typescript-eslint/eslint-plugin": "5.47.0",
@@ -44,7 +45,6 @@
     "typescript": "4.9.4"
   },
   "dependencies": {
-    "@sparticuz/chromium": "^106.0.2",
     "@types/lodash": "^4.14.191",
     "@types/user-agents": "^1.0.2",
     "aws-lambda": "^1.0.7",
