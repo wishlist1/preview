@@ -1,17 +1,18 @@
-import chromium from 'chrome-aws-lambda';
+import puppeteer from 'puppeteer-core';
+import chromium from '@sparticuz/chromium';
 
 async function get(url: string) {
   let result = null;
   let browser = null;
-  console.log('chrome scaping');
+  console.log('chrome scraping');
 
   try {
-    browser = await chromium.puppeteer.launch({
+    browser = await puppeteer.launch({
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
       executablePath: await chromium.executablePath,
       headless: chromium.headless,
-      ignoreHTTPSErrors: true
+      ignoreHTTPSErrors: true,
     });
 
     const page = await browser.newPage();
