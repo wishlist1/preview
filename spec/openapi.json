@@ -187,6 +187,15 @@
             "schema": {
               "$ref": "#/components/schemas/refresh"
             }
+          },
+          {
+            "name": "browser",
+            "in": "query",
+            "description": "Force fetch using browser",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/refresh"
+            }
           }
         ],
         "tags": [],

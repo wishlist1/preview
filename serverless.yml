@@ -50,6 +50,10 @@ functions:
                 description: "Force re-fetch result"
                 schema:
                   type: "boolean"
+              - name: "browser"
+                description: "Force fetch using browser"
+                schema:
+                  type: "boolean"
           path: /preview/{url}
           method: get
           cors: true
