@@ -35,7 +35,7 @@
     "prettier": "2.8.1",
     "puppeteer": "13.7.0",
     "serverless-dynamodb-local": "0.2.40",
-    "serverless-offline": "11.6.0",
+    "serverless-offline": "12.0.3",
     "serverless-openapi-documenter": "0.0.40",
     "serverless-plugin-typescript": "2.1.4",
     "serverless-tscpaths": "0.0.7",
