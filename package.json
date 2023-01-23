@@ -1,6 +1,6 @@
 {
   "name": "@openwishlist/preview",
-  "version": "0.177.0",
+  "version": "0.178.0",
   "description": "Serverless link preview api",
   "main": "index.js",
   "scripts": {
@@ -44,7 +44,7 @@
     "typescript": "4.9.4"
   },
   "dependencies": {
-    "@sparticuz/chromium": "^106.0.2",
+    "@sparticuz/chromium": "^109.0.0",
     "@types/lodash": "^4.14.191",
     "@types/user-agents": "^1.0.2",
     "aws-lambda": "^1.0.7",
