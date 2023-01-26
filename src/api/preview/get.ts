@@ -6,7 +6,7 @@ import { get as scrape } from '@lib/scraper';
 import { PriceChange, Result } from '@models/result';
 import { v4 as uuid } from 'uuid';
 import { Offer, PriceSpecification } from 'schema-dts';
-import { isEmpty, result } from 'lodash';
+import { isEmpty } from 'lodash';
 
 const headers = {
   'Content-Type': 'application/json',

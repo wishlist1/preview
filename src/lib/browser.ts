@@ -7,16 +7,17 @@ async function get(url: string) {
   console.log('chrome scraping');
 
   try {
-    browser = await puppeteer.launch({
+    const options = {
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath,
       headless: chromium.headless,
-      ignoreHTTPSErrors: true,
-    });
+      executablePath: await chromium.executablePath(),
+      ignoreHTTPSErrors: true
+    };
+
+    browser = await puppeteer.launch(options);
 
     const page = await browser.newPage();
-    console.log(page);
 
     await page.goto(url);
 
@@ -31,7 +32,6 @@ async function get(url: string) {
     }
   }
 
-  console.log(result);
   return result;
 }
 

@@ -16,6 +16,15 @@ authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'
 
 This service provide simple HTTP API to get url preview with Node.js running on AWS Lambda and API Gateway using the Serverless Framework.
 
+Status:
+
+- [x] curl based scraping
+- [x] browser scraping
+- [x] json schema parsing
+- [ ] unit tests
+- [ ] e2e tests
+- [ ] api errors and http status correction
+- [ ] api gateway v2 migration
 
 ## Usage
 

@@ -1,4 +1,4 @@
-import axios, {AxiosError} from 'axios';
+import axios from 'axios';
 import * as cheerio from 'cheerio';
 import UserAgent from 'user-agents';
 import Schema from '@parsers/schema';
@@ -45,7 +45,7 @@ async function get(url: string, forceBrowser: boolean) {
     return result;
   } catch (error) {
     console.log(error);
-    if (error?.response?.status == 503 && amazon.indentify(url, "")) {
+    if (error?.response?.status == 503 && amazon.indentify(url, '')) {
       const html = await browser(url);
       data = 'browser';
       result = parse(url, html);

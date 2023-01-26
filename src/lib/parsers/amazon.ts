@@ -1,7 +1,6 @@
 import config from 'config';
 import { Product, Review, WithContext } from 'schema-dts';
 import Parser from '@parsers/parser';
-import { get as browser } from '@lib/browser';
 import { isEmpty } from 'lodash';
 
 export default class Amazon implements Parser {

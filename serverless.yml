@@ -6,6 +6,7 @@ frameworkVersion: '3'
 provider:
   name: aws
   runtime: nodejs16.x
+  timeout: 30
   environment:
     DYNAMODB_TABLE: ${self:service}-${sls:stage}
   httpApi:
@@ -27,9 +28,21 @@ provider:
             - dynamodb:Query
             - dynamodb:Scan
           Resource: "arn:aws:dynamodb:${aws:region}:*:table/${self:provider.environment.DYNAMODB_TABLE}/index/*"
+
+layers:
+  HeadlessChrome:
+    name: HeadlessChrome
+    compatibleRuntimes:
+      - nodejs16.x
+    description: Required for headless chrome
+    package:
+      artifact: layers/chrome_aws_lambda.zip
+      
 functions:
   preview:
     handler: src/api/preview/get.get
+    layers:
+      - { Ref: HeadlessChromeLambdaLayer }
     events:
       - http:
           documentation: 
@@ -62,6 +75,8 @@ functions:
             maxConcurrentRequests: 20
   preview-get-by-id:
     handler: src/api/preview/get.getById
+    layers:
+      - { Ref: HeadlessChromeLambdaLayer }
     events:
       - http:
           documentation: 

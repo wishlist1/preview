@@ -12,6 +12,6 @@
       "@parsers/*": ["./lib/parsers/*"]
     }
   },
-  "exclude": ["node_modules"],
+  "exclude": [".serverless", ".webpack", "node_modules"],
   "types": ["node", "aws-sdk"]
 }
