@@ -19,7 +19,9 @@ This service provide simple HTTP API to get url preview with Node.js running on 
 Status:
 
 - [x] curl based scraping
-- [x] browser scraping
+- [x] browser based scraping
+- [x] user agent randomization
+- [x] stealth browser plugin
 - [x] json schema parsing
 - [ ] unit tests
 - [ ] e2e tests

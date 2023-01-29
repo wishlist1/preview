@@ -1,7 +1,7 @@
 name: Serverless AWS Deploy
 
 on:
-  push:
+  pull_request:
     branches:
       - main
 
@@ -19,12 +19,13 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
-    - name: serverless deploy
+    - name: serverless deploy --stage dev
       uses: serverless/github-action@v3.1
       with:
         args: deploy
       env:
         SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
+        PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true
         # or if using AWS credentials directly
         # AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         # AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

@@ -144,5 +144,6 @@ custom:
   dynamodb:
     stages:
       - dev
+      - live
     start:
       migrate: true

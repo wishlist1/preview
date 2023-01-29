@@ -9,7 +9,8 @@
       "@api/*": ["./api/*"],
       "@models/*": ["./models/*"],
       "@lib/*": ["./lib/*"],
-      "@parsers/*": ["./lib/parsers/*"]
+      "@parsers/*": ["./lib/parsers/*"],
+      "@utils/*": ["./utils/*"]
     }
   },
   "exclude": [".serverless", ".webpack", "node_modules"],

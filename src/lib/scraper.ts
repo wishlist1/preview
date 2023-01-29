@@ -61,7 +61,7 @@ function parse(url: string, html: string) {
     meta: {}
   };
 
-  if (html !== undefined) {
+  if (html !== undefined && html !== null) {
     /**
       // for testing in browser:
       var jq = document.createElement('script');
