@@ -1,6 +1,6 @@
 {
   "name": "@openwishlist/preview",
-  "version": "0.187.0",
+  "version": "0.188.0",
   "description": "Serverless link preview api",
   "main": "index.js",
   "scripts": {
@@ -41,7 +41,7 @@
     "ts-jest": "29.0.5",
     "ts-node": "10.9.1",
     "typeconv": "1.8.0",
-    "typescript": "4.9.4"
+    "typescript": "4.9.5"
   },
   "dependencies": {
     "@sparticuz/chromium": "^110.0.0",
