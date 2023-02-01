@@ -36,7 +36,7 @@ layers:
       - nodejs16.x
     description: Required for headless chrome
     package:
-      artifact: layers/chrome_aws_lambda.zip
+      artifact: layers/chromium-v109.0.6-layer.zip
       
 functions:
   preview:

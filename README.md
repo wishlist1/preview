@@ -27,13 +27,20 @@ Status:
 - [ ] e2e tests
 - [ ] api errors and http status correction
 - [ ] api gateway v2 migration
+- [ ] performance tests
 
 ## Usage
 
 ### Deployment
 
-```
-$ serverless deploy
+```bash
+serverless deploy
+
+# deploy dev env
+serverless deploy --stage dev
+
+# deploy live env with debug logs
+serverless deploy --stage live --verbose
 ```
 
 After deploying, you should see output similar to:
@@ -82,6 +89,14 @@ Which should result in response similar to the following (removed `input` conten
 ```
 
 ### Local development
+
+#### Setup
+
+```bash
+PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 npm install
+```
+
+#### Run
 
 You can invoke your function locally by using the following command:
 
