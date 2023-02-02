@@ -1,10 +1,15 @@
-import puppeteer from 'puppeteer-core';
+import { isOffline } from '@utils/common';
+import puppeteer from 'puppeteer';
+import { addExtra } from 'puppeteer-extra';
+import StealthPlugin from 'puppeteer-extra-plugin-stealth';
+import AdblockerPlugin from 'puppeteer-extra-plugin-adblocker';
 import chromium from '@sparticuz/chromium';
 
 async function get(url: string) {
   let result = null;
   let browser = null;
-  console.log('chrome scraping');
+  console.time('browser scraping');
+  console.time('scraping time');
 
   try {
     const options = {
@@ -15,7 +20,21 @@ async function get(url: string) {
       ignoreHTTPSErrors: true
     };
 
-    browser = await puppeteer.launch(options);
+    if (isOffline()) {
+      options.args.push('--remote-debugging-port=9222');
+      options.args.push('--remote-debugging-address=0.0.0.0');
+    }
+
+    const extra = addExtra(puppeteer);
+
+    const stealth = StealthPlugin();
+    stealth.enabledEvasions.delete('user-agent-override');
+    extra.use(stealth);
+
+    const adblocker = AdblockerPlugin();
+    extra.use(adblocker);
+
+    browser = await extra.launch(options);
 
     const page = await browser.newPage();
 
@@ -32,6 +51,7 @@ async function get(url: string) {
     }
   }
 
+  console.timeEnd('scraping time');
   return result;
 }
 
