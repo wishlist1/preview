@@ -1,6 +1,6 @@
 {
   "name": "@openwishlist/preview",
-  "version": "0.188.0",
+  "version": "0.189.0",
   "description": "Serverless link preview api",
   "main": "index.js",
   "scripts": {
@@ -53,7 +53,7 @@
     "axios": "1.2.1",
     "base64url": "3.0.1",
     "cheerio": "1.0.0-rc.12",
-    "config": "3.3.7",
+    "config": "3.3.9",
     "lodash": "4.17.21",
     "puppeteer": "npm:puppeteer-core@19.4.0",
     "puppeteer-extra": "3.3.4",
