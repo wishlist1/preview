@@ -1,6 +1,6 @@
 {
   "name": "@openwishlist/preview",
-  "version": "0.223.0",
+  "version": "0.224.0",
   "description": "Serverless link preview api",
   "main": "index.js",
   "scripts": {
@@ -61,7 +61,7 @@
     "puppeteer-extra-plugin-stealth": "2.11.1",
     "schema-dts": "1.1.0",
     "serverless-api-gateway-throttling": "2.0.2",
-    "user-agents": "1.0.1293",
+    "user-agents": "1.0.1294",
     "uuid": "9.0.0"
   },
   "engines": {
