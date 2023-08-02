@@ -1,6 +1,6 @@
 {
   "name": "@openwishlist/preview",
-  "version": "0.553.0",
+  "version": "0.554.0",
   "description": "Serverless link preview api",
   "main": "index.js",
   "scripts": {
@@ -25,7 +25,7 @@
   "author": "Milind Singh",
   "license": "MIT",
   "devDependencies": {
-    "@shelf/jest-dynamodb": "3.4.1",
+    "@shelf/jest-dynamodb": "3.4.2",
     "@sparticuz/chromium": "109.0.6",
     "@types/jest": "29.5.3",
     "@types/node": "16.18.39",
