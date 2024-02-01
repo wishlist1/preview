@@ -1,6 +1,6 @@
 {
   "name": "@openwishlist/preview",
-  "version": "0.644.0",
+  "version": "0.645.0",
   "description": "Serverless link preview api",
   "main": "index.js",
   "scripts": {
@@ -41,7 +41,7 @@
     "serverless-openapi-documenter": "0.0.93",
     "serverless-plugin-typescript": "npm:@adapttive/serverless-plugin-typescript@2.1.4",
     "serverless-tscpaths": "0.0.8",
-    "ts-jest": "29.1.1",
+    "ts-jest": "29.1.2",
     "ts-node": "10.9.1",
     "typeconv": "2.3.1",
     "typescript": "4.9.4"
