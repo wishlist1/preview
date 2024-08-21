@@ -1,6 +1,6 @@
 {
   "name": "@openwishlist/preview",
-  "version": "0.693.0",
+  "version": "0.694.0",
   "description": "Serverless link preview api",
   "main": "index.js",
   "scripts": {
@@ -50,7 +50,7 @@
     "@types/lodash": "4.17.7",
     "@types/user-agents": "1.0.4",
     "aws-lambda": "1.0.7",
-    "axios": "1.7.3",
+    "axios": "1.7.4",
     "base64url": "3.0.1",
     "cheerio": "1.0.0-rc.12",
     "config": "3.3.12",
