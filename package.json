@@ -1,6 +1,6 @@
 {
   "name": "@openwishlist/preview",
-  "version": "0.694.0",
+  "version": "0.695.0",
   "description": "Serverless link preview api",
   "main": "index.js",
   "scripts": {
@@ -52,7 +52,7 @@
     "aws-lambda": "1.0.7",
     "axios": "1.7.4",
     "base64url": "3.0.1",
-    "cheerio": "1.0.0-rc.12",
+    "cheerio": "1.0.0",
     "config": "3.3.12",
     "lodash": "4.17.21",
     "puppeteer": "npm:puppeteer-core@19.11.1",
