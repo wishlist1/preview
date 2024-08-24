@@ -1,6 +1,6 @@
 {
   "name": "@openwishlist/preview",
-  "version": "0.702.0",
+  "version": "0.703.0",
   "description": "Serverless link preview api",
   "main": "index.js",
   "scripts": {
@@ -26,7 +26,7 @@
   "license": "MIT",
   "devDependencies": {
     "@shelf/jest-dynamodb": "3.5.0",
-    "@sparticuz/chromium": "109.0.6",
+    "@sparticuz/chromium": "127.0.0",
     "@types/jest": "29.5.12",
     "@types/node": "16.18.105",
     "@typescript-eslint/eslint-plugin": "5.62.0",
